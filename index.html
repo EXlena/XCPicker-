@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>POT Team Balancer</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<div class="background-glow"></div>
+
+<div class="container">
+
+
+    <header class="header">
+
+        <div class="brand">
+
+            <div class="brand-icon">
+                POT
+            </div>
+
+            <div>
+                <h1>XCP Team Picker</h1>
+
+                <p>
+                    Seleksi Player Secara Random dan Skill Balance 
+                </p>
+            </div>
+
+        </div>
+
+
+     
+
+        <div class="logo-grid">
+
+
+            <div class="logo-cell main-logo">
+
+                <img    
+                    src="xcpicon2.png"
+                    alt="Team Logo"
+                    onerror="this.style.display='none'"
+                >
+
+                <span class="logo-placeholder">
+                    LOGO
+                </span>
+
+            </div>
+
+
+            <div class="logo-cell"></div>
+
+            <div class="logo-cell"></div>
+
+            <div class="logo-cell"></div>
+
+        </div>
+
+    </header>
+
+
+    <!-- ================= POT LEGEND ================= -->
+
+    <section class="pot-legend">
+
+        <div class="legend-title">
+            <span class="step">POT</span>
+
+            <strong>Skill Tier</strong>
+        </div>
+
+
+        <div class="pot-list">
+
+            <div class="pot-item pot-1">
+                <b>POT 1</b>
+                <span>IRON — BRONZE</span>
+            </div>
+
+            <div class="pot-item pot-2">
+                <b>POT 2</b>
+                <span>SILVER — GOLD</span>
+            </div>
+
+            <div class="pot-item pot-3">
+                <b>POT 3</b>
+                <span>PLAT — DIAMOND</span>
+            </div>
+
+            <div class="pot-item pot-4">
+                <b>POT 4</b>
+                <span>ASCENDANT</span>
+            </div>
+
+            <div class="pot-item pot-5">
+                <b>POT 5</b>
+                <span>IMMORTAL</span>
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- ================= TEAM SETUP ================= -->
+
+    <section class="setup-card">
+
+        <div class="section-heading">
+
+            <div>
+
+                <span class="section-number">
+                    01
+                </span>
+
+                <h2>Team Setup</h2>
+
+            </div>
+
+            <span class="section-info">
+                CREATE TEAMS
+            </span>
+
+        </div>
+
+
+        <div class="input-group">
+
+            <label for="teamCount">
+                Jumlah Tim
+            </label>
+
+            <input
+                type="number"
+                id="teamCount"
+                min="2"
+                max="20"
+                value="2"
+            >
+
+        </div>
+
+
+        <div class="input-group">
+
+            <label>
+                Nama Tim
+            </label>
+
+            <div
+                id="teamInputs"
+                class="team-inputs"
+            ></div>
+
+        </div>
+
+
+        <button
+            id="continueBtn"
+            class="primary-button"
+        >
+            Continue →
+        </button>
+
+    </section>
+
+
+    <!-- ================= PLAYER SETUP ================= -->
+
+    <section
+        id="playerSetup"
+        class="setup-card hidden"
+    >
+
+        <div class="section-heading">
+
+            <div>
+
+                <span class="section-number">
+                    02
+                </span>
+
+                <h2>Player Setup</h2>
+
+            </div>
+
+            <span class="section-info">
+                ADD PLAYERS
+            </span>
+
+        </div>
+
+
+        <div class="input-group">
+
+            <label for="playerInput">
+                Player List
+            </label>
+
+            <textarea
+                id="playerInput"
+                rows="12"
+                placeholder="Masukkan player satu per baris...
+
+Alfi
+Budi
+Candra
+Dimas
+Eko
+Fajar"
+            ></textarea>
+
+            <small>
+                Format:
+                Nama Player | POT
+            </small>
+
+        </div>
+
+
+        <!-- PLAYER FORMAT EXAMPLE -->
+
+        <div class="format-example">
+
+            <div class="format-header">
+                Player Format
+            </div>
+
+            <code>
+                Alfi | 5
+            </code>
+
+            <code>
+                Budi | 4
+            </code>
+
+            <code>
+                Candra | 3
+            </code>
+
+            <code>
+                Dimas | 2
+            </code>
+
+            <code>
+                Eko | 1
+            </code>
+
+        </div>
+
+
+        <button
+            id="startBtn"
+            class="primary-button"
+        >
+            Start Selection →
+        </button>
+
+    </section>
+
+
+    <!-- ================= GAME ================= -->
+
+    <section
+        id="gameSection"
+        class="game-section hidden"
+    >
+
+
+        <!-- ================= WHEEL ================= -->
+
+        <div class="wheel-card">
+
+            <div class="section-heading">
+
+                <div>
+
+                    <span class="section-number">
+                        03
+                    </span>
+
+                    <h2>Player Selection</h2>
+
+                </div>
+
+                <span
+                    id="remainingCounter"
+                    class="section-info"
+                >
+                    0 PLAYERS
+                </span>
+
+            </div>
+
+
+            <div class="wheel-wrapper">
+
+                <div class="wheel-pointer"></div>
+
+                <canvas
+                    id="wheel"
+                    width="500"
+                    height="500"
+                ></canvas>
+
+            </div>
+
+
+            <div class="selection-result">
+
+                <span>
+                    SELECTED PLAYER
+                </span>
+
+                <strong id="selectedPlayer">
+                    —
+                </strong>
+
+                <div
+                    id="selectedPot"
+                    class="selected-pot"
+                >
+                    POT —
+                </div>
+
+            </div>
+
+
+            <div class="assignment-result">
+
+                <span>
+                    ASSIGNED TO
+                </span>
+
+                <strong id="assignedTeam">
+                    —
+                </strong>
+
+            </div>
+
+
+            <button
+                id="spinBtn"
+                class="spin-button"
+            >
+                SPIN
+            </button>
+
+        </div>
+
+
+        <!-- ================= TEAM STATUS ================= -->
+
+        <div class="teams-card">
+
+            <div class="section-heading">
+
+                <div>
+
+                    <span class="section-number">
+                        04
+                    </span>
+
+                    <h2>Team Balance</h2>
+
+                </div>
+
+            </div>
+
+
+            <div
+                id="teamsContainer"
+                class="teams-container"
+            ></div>
+
+        </div>
+
+    </section>
+
+
+    <!-- ================= FINAL RESULT ================= -->
+
+    <section
+        id="resultSection"
+        class="result-card hidden"
+    >
+
+        <div class="final-header">
+
+            <span class="section-number">
+                COMPLETE
+            </span>
+
+            <h2>
+                Balanced Teams
+            </h2>
+
+            <p>
+                Semua player telah berhasil
+                dibagikan berdasarkan POT dan
+                skill balance.
+            </p>
+
+        </div>
+
+
+        <div
+            id="finalTeams"
+            class="final-teams"
+        ></div>
+
+
+        <button
+            id="resetBtn"
+            class="secondary-button"
+        >
+            ← New Selection
+        </button>
+
+    </section>
+
+
+    <footer>
+
+        POT Team Balancer
+
+        <span>•</span>
+
+        Randomized
+        <span>+</span>
+        Skill Balanced
+
+    </footer>
+
+</div>
+
+
+<script src="script.js"></script>
+
+</body>
+</html>
